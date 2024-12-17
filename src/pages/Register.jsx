@@ -27,8 +27,8 @@ const Register = () => {
   };
 
   return (
-    <div>
-      <div className="hero bg-base-200 min-h-screen">
+    <div  className="hero"
+    style={{ minHeight: `calc(100vh - 68px)` }}>
         <div className="hero-content flex-col lg:flex-row-reverse">
           <div className="text-center lg:text-left w-96">
             <Lottie animationData={registerLottie} />
@@ -75,7 +75,6 @@ const Register = () => {
             </form>
           </div>
         </div>
-      </div>
     </div>
   );
 };
