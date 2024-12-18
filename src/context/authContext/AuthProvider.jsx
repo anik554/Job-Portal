@@ -9,7 +9,7 @@ import {
   signOut,
 } from "firebase/auth";
 import auth from "../../firebase/firebase_init";
-
+import PropTypes from 'prop-types';
 
 const AuthProvider = ({ children }) => {
   const googleProvider = new GoogleAuthProvider();
@@ -60,5 +60,9 @@ const AuthProvider = ({ children }) => {
     <AuthContext.Provider value={authInfo}>{children}</AuthContext.Provider>
   );
 };
+
+AuthProvider.propTypes={
+  children:PropTypes.node.isRequired
+}
 
 export default AuthProvider;

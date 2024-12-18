@@ -3,12 +3,17 @@ import signInLottie from "../assets/loginMotion.json";
 import { useContext, useState } from "react";
 import AuthContext from "../context/authContext/AuthContext";
 import GoogleLogin from "../common/GoogleLogin";
+import { useLocation, useNavigate } from "react-router-dom";
 const SignIn = () => {
+  const location = useLocation();
+  const navigate = useNavigate();
   const { singInUser } = useContext(AuthContext);
   const [regInfo, setRegInfo] = useState({
     email: "",
     password: "",
   });
+
+  const from = location?.state || "/"
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -23,6 +28,7 @@ const SignIn = () => {
     singInUser(regInfo.email, regInfo.password)
       .then((result) => {
         console.log(result);
+        navigate(from)
       })
       .catch((err) => {
         console.log(err.message);
