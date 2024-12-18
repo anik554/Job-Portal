@@ -27,7 +27,7 @@ const SignIn = () => {
     e.preventDefault();
     singInUser(regInfo.email, regInfo.password)
       .then((result) => {
-        console.log(result);
+        console.log(result.user);
         navigate(from)
       })
       .catch((err) => {
