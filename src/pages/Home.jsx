@@ -1,7 +1,11 @@
+import Banner from "../components/Banner";
+import BrowseByCategory from "../components/BrowseByCategory";
+
 const Home = () => {
   return (
     <div>
-      <h2>This is Home Page</h2>
+      <Banner />
+      <BrowseByCategory />
     </div>
   );
 };

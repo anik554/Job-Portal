@@ -1,10 +1,27 @@
-import { Link } from "react-router-dom";
+import { useContext } from "react";
+import { Link, NavLink } from "react-router-dom";
+import AuthContext from "../context/authContext/AuthContext";
 
 const Navbar = () => {
-    const links = <>
-        <li><a>Home</a></li>
-        <li><a>About</a></li>
+  const { user,signOutUser } = useContext(AuthContext);
+  const links = (
+    <>
+      <li>
+        <NavLink to={"/"}>Home</NavLink>
+      </li>
+      <li>
+        <NavLink to={"/about"}>About</NavLink>
+      </li>
     </>
+  );
+
+  const handleSignOut=()=>{
+    signOutUser().then(res =>{
+      console.log("loggout", res)
+    }).catch(err => {
+      console.log(err)
+    })
+  }
   return (
     <div>
       <div className="navbar bg-base-100">
@@ -30,19 +47,33 @@ const Navbar = () => {
               tabIndex={0}
               className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow"
             >
-             {links}
+              {links}
             </ul>
           </div>
-          <a className="btn btn-ghost text-xl">daisyUI</a>
+          <a className="btn btn-ghost text-xl">Job Portal</a>
         </div>
         <div className="navbar-center hidden lg:flex">
-          <ul className="menu menu-horizontal px-1">
-            {links}
-          </ul>
+          <ul className="menu menu-horizontal px-1">{links}</ul>
         </div>
-        <div className="navbar-end">
-          <Link to="/register">Register</Link>
-          <a className="btn">Sign in</a>
+        <div className="navbar-end ">
+          {user && user?.email ? (
+            <>
+              <button className="btn btn-sm">
+                <Link onClick={handleSignOut} to="/">Sign out</Link>
+              </button>
+            </>
+          ) : (
+            <>
+              <button className="btn btn-sm">
+                <Link to="/register">Register</Link>
+              </button>
+              &ensp;
+              <button className="btn btn-sm">
+                {" "}
+                <Link to="/signIn">Sign in</Link>
+              </button>
+            </>
+          )}
         </div>
       </div>
     </div>
