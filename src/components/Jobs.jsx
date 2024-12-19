@@ -3,16 +3,20 @@ import { useEffect, useState } from "react";
 import { CiLocationOn } from "react-icons/ci";
 import { BiCategoryAlt } from "react-icons/bi";
 import { CiTimer } from "react-icons/ci";
+import { Link } from "react-router-dom";
 const Jobs = () => {
   const [allJobs, setAllJobs] = useState([]);
   useEffect(() => {
-    axios.get("./jobs.json").then((data) => {
+    axios.get("http://localhost:5000/jobs").then((data) => {
       setAllJobs(data.data);
     });
   }, []);
   return (
     <div>
-      <h2>All Jobs {allJobs.length}</h2>
+      <div className="text-center py-4">
+        <h2 className="text-3xl font-bold text-center mb-2 text-gray-800">Jobs of the day</h2>
+        <p className="text-center text-gray-500 mb-8">Search and connect with the right candidates faster.</p>
+      </div>
 
       <div className="grid grid-cols-4 gap-3">
         {allJobs.map((job) => (
@@ -37,18 +41,22 @@ const Jobs = () => {
                 </div>
 
                 <p className="text-sm"> {job.description}</p>
-                <div className="flex items-center flex-wrap ">
-                  {job.requirements.map((req, index) => (
+                <div className="flex items-center flex-wrap gap-1 ">
+                  {job.requirements.map((req) => (
                     <>
-                      <div key={index}>
-                        <p className="shadow-lg p-3 text-xs">{req}</p>
+                      <div key={req._id}>
+                        <p className="border rounded-md text-center px-2 text-xs hover:text-purple-600">{req}</p>
                       </div>
                     </>
                   ))}
                 </div>
                 <div className="flex justify-between items-center">
                     <p className="text-sm">{job.salaryRange.min} to {job.salaryRange.max}/{job.salaryRange.currency}</p>
-                  <button className="btn btn-primary btn-sm">Apply</button>
+
+                    <Link to={`/jobs/${job._id}`}>
+                      <button className="btn btn-primary btn-sm">Apply</button>
+                    </Link>
+                  
                 </div>
               </div>
             </div>

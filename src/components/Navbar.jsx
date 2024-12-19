@@ -1,8 +1,9 @@
 import { useContext } from "react";
-import { Link, NavLink } from "react-router-dom";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 import AuthContext from "../context/authContext/AuthContext";
 
 const Navbar = () => {
+  const navigate = useNavigate();
   const { user,signOutUser } = useContext(AuthContext);
   const links = (
     <>
@@ -10,13 +11,17 @@ const Navbar = () => {
         <NavLink to={"/"}>Home</NavLink>
       </li>
       <li>
-        <NavLink to={"/about"}>About</NavLink>
+        <NavLink to={"/addJob"}>Add job</NavLink>
+      </li>
+      <li>
+        <NavLink to={"/appliedJobs"}>Applied Jobs</NavLink>
       </li>
     </>
   );
 
   const handleSignOut=()=>{
     signOutUser().then(res =>{
+      navigate("/")
       console.log("loggout", res)
     }).catch(err => {
       console.log(err)
