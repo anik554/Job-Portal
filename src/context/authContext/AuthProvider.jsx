@@ -9,7 +9,7 @@ import {
   signOut,
 } from "firebase/auth";
 import auth from "../../firebase/firebase_init";
-import PropTypes from 'prop-types';
+import PropTypes from "prop-types";
 
 const AuthProvider = ({ children }) => {
   const googleProvider = new GoogleAuthProvider();
@@ -21,20 +21,20 @@ const AuthProvider = ({ children }) => {
     return createUserWithEmailAndPassword(auth, email, password);
   };
 
-  const singInUser = (email, password)=>{
+  const singInUser = (email, password) => {
     setLoading(true);
-    return signInWithEmailAndPassword(auth, email, password)
-  }
+    return signInWithEmailAndPassword(auth, email, password);
+  };
 
-  const signInGoogle=()=>{
+  const signInGoogle = () => {
     setLoading(true);
-    return signInWithPopup(auth, googleProvider)
-  }
+    return signInWithPopup(auth, googleProvider);
+  };
 
-  const signOutUser=()=>{
+  const signOutUser = () => {
     setLoading(true);
-    return signOut(auth)
-  }
+    return signOut(auth);
+  };
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
@@ -45,14 +45,13 @@ const AuthProvider = ({ children }) => {
       unsubscribe();
     };
   }, []);
-
   const authInfo = {
     user,
     loading,
     createUser,
     singInUser,
     signOutUser,
-    signInGoogle
+    signInGoogle,
   };
 
   return (
@@ -60,8 +59,8 @@ const AuthProvider = ({ children }) => {
   );
 };
 
-AuthProvider.propTypes={
-  children:PropTypes.node.isRequired
-}
+AuthProvider.propTypes = {
+  children: PropTypes.node.isRequired,
+};
 
 export default AuthProvider;
